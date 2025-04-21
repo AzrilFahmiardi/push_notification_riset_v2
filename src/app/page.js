@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { onMessageListener } from '../firebase/messaging';
 import { useNotification } from '../hooks/useNotification';
 import SendNotification from './components/sendNotification';
@@ -8,8 +8,11 @@ import PionirLandingPage from './components/pionirLandingPage';
 
 export default function Page() {
   const notification = useNotification(); // Menggunakan hook untuk menangani requestForToken
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // Register service worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/firebase-messaging-sw.js')
@@ -21,6 +24,8 @@ export default function Page() {
         });
     }
 
+
+    // Listen for foreground notifications
     onMessageListener()
       .then((payload) => {
         console.log('Received in foreground:', payload);

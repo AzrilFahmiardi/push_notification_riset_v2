@@ -15,7 +15,7 @@ export async function POST(request) {
     }
     
     // const result = await sendMulticastMessage(title, body, data);
-    const result = await sendToTopic('broadcast', title, body);
+    const result = await sendToTopic('broadcast', title, body, data);
 
     
     if (result.success) {
