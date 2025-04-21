@@ -5,7 +5,6 @@ import 'dotenv/config';
 const serviceAccount = JSON.parse(
   Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT, 'base64').toString('utf-8')
 );
-print(serviceAccount)
 
 if (!admin.apps.length) {
   admin.initializeApp({
