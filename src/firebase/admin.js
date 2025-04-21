@@ -1,10 +1,11 @@
 import admin from 'firebase-admin';
 // import serviceAccount from './serviceAccountKey.json';
-require('dotenv').config(); // pastikan dotenv dipanggil dulu
+import 'dotenv/config';
 
-
-let serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-
+const serviceAccount = JSON.parse(
+  Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT, 'base64').toString('utf-8')
+);
+print(serviceAccount)
 
 if (!admin.apps.length) {
   admin.initializeApp({
