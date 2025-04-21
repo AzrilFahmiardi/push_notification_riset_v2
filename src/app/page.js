@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { onMessageListener } from '../firebase/messaging';
 import { useNotification } from '../hooks/useNotification';
 import SendNotification from './components/sendNotification';
+import PionirLandingPage from './components/pionirLandingPage';
 
 export default function Page() {
   const notification = useNotification(); // Menggunakan hook untuk menangani requestForToken
@@ -23,7 +24,7 @@ export default function Page() {
     onMessageListener()
       .then((payload) => {
         console.log('Received in foreground:', payload);
-        alert(payload.notification.title);
+        alert(payload.notification.title)
       })
       .catch((err) => console.log('onMessage error:', err));
   }, []);
@@ -31,7 +32,8 @@ export default function Page() {
   return (
     <main className="min-h-screen p-4">
       <h1 className="text-2xl font-bold mb-6">Firebase FCM Demo</h1>
-      <SendNotification />
+      {/* <SendNotification /> */}
+      <PionirLandingPage />
     </main>
   );
 }
