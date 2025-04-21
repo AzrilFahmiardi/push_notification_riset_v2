@@ -1,14 +1,16 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { onMessageListener } from '../firebase/messaging';
 import { useNotification } from '../hooks/useNotification';
-import SendNotification from './components/sendNotification';
 
 export default function Page() {
   const notification = useNotification(); // Menggunakan hook untuk menangani requestForToken
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // Register service worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/firebase-messaging-sw.js')
@@ -20,6 +22,39 @@ export default function Page() {
         });
     }
 
+    // Fetch notification data on page load
+    const fetchNotification = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('/api/send-notification', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title: 'Pinor Gadjah Mada 2025',
+            body: 'Halo Gamada Muda, nantikan notifikasi terbaru dari kami!',
+            data: { url: window.location.origin },
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setResult(data);
+      } catch (error) {
+        console.error('Error fetching notification:', error);
+        setResult({ success: false, message: error.message });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNotification();
+
+    // Listen for foreground notifications
     onMessageListener()
       .then((payload) => {
         console.log('Received in foreground:', payload);
@@ -28,25 +63,14 @@ export default function Page() {
       .catch((err) => console.log('onMessage error:', err));
   }, []);
 
-  // return (
-  //   <main className="min-h-screen p-4">
-  //     <h1 className="text-2xl font-bold mb-6">Firebase FCM Demo</h1>
-      
-  //     <SendNotification />
-  //   </main>
-  // );
-
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-900 to-indigo-900 text-white p-4">
       {/* Header */}
       <header className="container mx-auto flex flex-col md:flex-row justify-between items-center py-6">
         <div className="flex items-center mb-4 md:mb-0">
-          <div className="bg-yellow-500 rounded-full p-2 mr-3">
-            
-          </div>
+          <div className="bg-yellow-500 rounded-full p-2 mr-3"></div>
           <h1 className="text-xl font-bold">PIONIR GADJAH MADA 2025</h1>
         </div>
-        
         <nav className="flex space-x-4">
           <a href="#tentang" className="px-3 py-2 hover:bg-blue-800 rounded-lg transition-colors">Tentang</a>
           <a href="#kategori" className="px-3 py-2 hover:bg-blue-800 rounded-lg transition-colors">Kategori</a>
@@ -57,12 +81,14 @@ export default function Page() {
       {/* Hero Section */}
       <section className="container mx-auto text-center py-16 px-4">
         <h2 className="text-4xl md:text-5xl font-bold mb-6">PIONIR GADJAH MADA 2025</h2>
-        <p className="text-xl md:text-2xl mb-8 text-blue-200 max-w-2xl mx-auto">Kompetisi Nasional Mahasiswa dalam Bidang Ilmu Pengetahuan dan Inovasi</p>
+        <p className="text-xl md:text-2xl mb-8 text-blue-200 max-w-2xl mx-auto">
+          Kompetisi Nasional Mahasiswa dalam Bidang Ilmu Pengetahuan dan Inovasi
+        </p>
         <button className="bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-bold py-3 px-8 rounded-lg transition-colors">
           Daftar Sekarang
         </button>
       </section>
-      
+
       {/* Tentang Section */}
       <section id="tentang" className="container mx-auto py-12">
         <h3 className="text-2xl font-bold mb-6 text-center">Tentang PIONIR</h3>
@@ -75,8 +101,7 @@ export default function Page() {
           </p>
         </div>
       </section>
-      
-      
+
       {/* Footer */}
       <footer className="container mx-auto border-t border-blue-800 mt-12 py-6 text-center text-blue-300">
         <p>&copy; 2025 Pionir Gadjah Mada - Universitas Gadjah Mada</p>
