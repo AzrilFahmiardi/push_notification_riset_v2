@@ -1,6 +1,7 @@
 // src/app/api/send-notification/route.js
 import { NextResponse } from 'next/server';
 import { sendMulticastMessage } from '@/firebase/sendMessages';
+import { sendToTopic } from '@/firebase/sendTopicMessage';
 
 export async function POST(request) {
   try {
@@ -13,7 +14,9 @@ export async function POST(request) {
       );
     }
     
-    const result = await sendMulticastMessage(title, body, data);
+    // const result = await sendMulticastMessage(title, body, data);
+    const result = await sendToTopic('broadcast', title, body);
+
     
     if (result.success) {
       return NextResponse.json(result);

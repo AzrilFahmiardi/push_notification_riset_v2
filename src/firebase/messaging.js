@@ -31,6 +31,15 @@ export const requestForToken = async () => {
       await setDoc(tokenRef, { token, createdAt: new Date() });
 
       console.log('Token saved to Firestore');
+
+      // Subscribe ke topik "broadcast"
+      await fetch('/api/subscribe-topic', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, topic: 'broadcast' })
+      });
+
+      console.log('Subscribed to topic: broadcast');
     } else {
       console.log('No registration token available.');
     }
