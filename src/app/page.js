@@ -7,7 +7,7 @@ import SendNotification from './components/sendNotification';
 import PionirLandingPage from './components/pionirLandingPage';
 
 export default function Page() {
-  const notification = useNotification(); // Menggunakan hook untuk menangani requestForToken
+  // const notification = useNotification(); // Menggunakan hook untuk menangani requestForToken
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -23,6 +23,7 @@ export default function Page() {
           console.log('SW registration failed:', err);
         });
     }
+
 
 
     // Listen for foreground notifications

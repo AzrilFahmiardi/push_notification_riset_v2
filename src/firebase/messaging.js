@@ -40,6 +40,8 @@ export const requestForToken = async () => {
       });
 
       console.log('Subscribed to topic: broadcast');
+
+      return token
     } else {
       console.log('No registration token available.');
     }
