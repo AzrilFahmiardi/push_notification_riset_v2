@@ -66,13 +66,13 @@ export default function PionirLandingPage() {
           
           <div className="max-w-md mx-auto">
             <form onSubmit={handleSubmit} className="flex flex-col items-center">
-              <button
+              {/* <button
                 type="submit"
                 disabled={loading}
                 className="w-64 h-16 bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold text-lg rounded-full px-6 py-3 shadow-lg transform transition-transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-300 disabled:bg-gray-400 disabled:transform-none"
               >
                 {loading ? 'Memproses...' : 'Nyalakan Notifikasi!'}
-              </button>
+              </button> */}
               
               {result && result.success && (
                 <p className="mt-4 text-green-300">Notifikasi berhasil diaktifkan!</p>
