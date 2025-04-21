@@ -1,6 +1,6 @@
 import admin from "./admin";
 
-export const sendToTopic = async (topicName = 'broadcast',title_prompt='default title', messageText = 'Hello from server') => {
+export const sendToTopic = async (topicName = 'pionir',title_prompt='default title', messageText = 'Hello from server') => {
   const message = {
     notification: {
       title: title_prompt,

@@ -2,7 +2,7 @@
 import admin from './admin.js';
 import { getAllFCMTokens } from './sendMessages.js';
 
-const subscribeToTopic = async (topicName = 'broadcast') => {
+const subscribeToTopic = async (topicName = 'pionir') => {
   try {
     const tokens = await getAllFCMTokens();
 

@@ -32,14 +32,14 @@ export const requestForToken = async () => {
 
       console.log('Token saved to Firestore');
 
-      // Subscribe ke topik "broadcast"
+      // Subscribe ke topik "pionir"
       await fetch('/api/subscribe-topic', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, topic: 'broadcast' })
+        body: JSON.stringify({ token, topic: 'pionir' })
       });
 
-      console.log('Subscribed to topic: broadcast');
+      console.log('Subscribed to topic: pionir');
 
       return token
     } else {
