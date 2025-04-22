@@ -21,6 +21,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta 
+          name="viewport"
+          content="widht=device-width, initial-scale=1.0, user-scalable=no"
+        />
+        <meta name="mobile-web-app-status-bar-style" content="black"/>
         <link rel="manifest" href="./manifest.js" />
       </head>
       <body
