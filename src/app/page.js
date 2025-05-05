@@ -2,12 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { onMessageListener } from '../firebase/messaging';
-import { useNotification } from '../hooks/useNotification';
-import SendNotification from './components/sendNotification';
 import PionirLandingPage from './components/pionirLandingPage';
 
 export default function Page() {
-  // const notification = useNotification(); // Menggunakan hook untuk menangani requestForToken
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -24,8 +21,6 @@ export default function Page() {
         });
     }
 
-
-
     // Listen for foreground notifications
     onMessageListener()
       .then((payload) => {
@@ -38,7 +33,6 @@ export default function Page() {
   return (
     <main className="min-h-screen p-4">
       <h1 className="text-2xl font-bold mb-6">Firebase FCM Demo</h1>
-      {/* <SendNotification /> */}
       <PionirLandingPage />
     </main>
   );

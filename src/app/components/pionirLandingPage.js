@@ -24,14 +24,12 @@ export default function PionirLandingPage() {
     setLoading(true);
   
     try {
-      // Fetch the token first
+      // Fetch the token
       const token = await fetchToken();
       if (!token) {
         setResult({ success: false, message: 'Token not found' });
         return;
-      }
-  
-      // Jika token ditemukan, lakukan operasi berikutnya
+      }  
       console.log('Token successfully retrieved and ready for use:', token);
       setResult({ success: true, message: 'Token successfully retrieved!' });
     } catch (error) {

@@ -29,17 +29,15 @@ export const requestForToken = async () => {
       // Simpan token ke Firestore
       const tokenRef = doc(db, 'fcmTokens', token);
       await setDoc(tokenRef, { token, createdAt: new Date() });
-
       console.log('Token saved to Firestore');
 
-      // Subscribe ke topik "pionir"
+      // Subscribe ke topik "itgokil"
       await fetch('/api/subscribe-topic', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, topic: 'pionir' })
+        body: JSON.stringify({ token, topic: 'itgokil' })
       });
-
-      console.log('Subscribed to topic: pionir');
+      console.log('Subscribed to topic: itgokil');
 
       return token
     } else {

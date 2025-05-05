@@ -1,4 +1,6 @@
-// src/hooks/useNotification.js
+// This hooks work on localhost but not on production, i dont know why - azril
+
+
 import { useState, useEffect } from 'react';
 import { requestForToken, onMessageListener } from '../firebase/messaging';
 
